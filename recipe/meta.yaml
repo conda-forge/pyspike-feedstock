@@ -9,6 +9,8 @@ package:
 source:
   url: https://github.com/mariomulansky/PySpike/archive/{{ version }}.tar.gz
   sha256: 199d41af097e0b6e6583e22d4a9c3cedab51ceba4da2d940682ffefe8120a414
+  patches:
+    - 68.patch
 
 build:
   number: 0
