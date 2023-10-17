@@ -1,0 +1,30 @@
+From ea221ba75c55b8105e9086d8b354ff44b8899b5e Mon Sep 17 00:00:00 2001
+From: da-woods <dw-git@d-woods.co.uk>
+Date: Fri, 10 Mar 2023 20:41:18 +0000
+Subject: [PATCH] Make numpy_include conform to os.PathLike
+
+This is necessarily to support Cython 3. Cython 3 ends up passing the `numpy_include` instance directly to `os.path.join` Making `numpy_include` behave like an `os.PathLike` should allow `os.path.join` to work
+---
+ setup.py | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 616b454..1dfcfa6 100644
+--- a/setup.py
++++ b/setup.py
+@@ -21,11 +21,14 @@
+     use_cython = True
+ 
+ 
+-class numpy_include(object):
++class numpy_include(os.PathLike):
+     """Defers import of numpy until install_requires is through"""
+     def __str__(self):
+         import numpy
+         return numpy.get_include()
++    
++    def __fspath__(self):
++        return str(self)
+ 
+ 
+ if os.path.isfile("pyspike/cython/cython_add.c") and \
