@@ -1,5 +1,5 @@
 {% set name = "pyspike" %}
-{% set version = "0.8.0" %}
+{% set version = "0.9.0" %}
 
 
 package:
@@ -7,13 +7,11 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/mariomulansky/PySpike/archive/{{ version }}.tar.gz
-  sha256: 199d41af097e0b6e6583e22d4a9c3cedab51ceba4da2d940682ffefe8120a414
-  patches:
-    - 68.patch
+  url: https://github.com/mariomulansky/PySpike/archive/v{{ version }}.tar.gz
+  sha256: 9531c3aa4bb648a517d440724341ebce4baabc582af6b80c72b35b30ef6dc3fb
 
 build:
-  number: 4
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
