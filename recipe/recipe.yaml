@@ -1,23 +1,25 @@
-{% set name = "pyspike" %}
-{% set version = "0.9.0" %}
+schema_version: 1
 
+context:
+  name: pyspike
+  version: "0.9.0"
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/mariomulansky/PySpike/archive/v{{ version }}.tar.gz
+  url: https://github.com/mariomulansky/PySpike/archive/v${{ version }}.tar.gz
   sha256: 9531c3aa4bb648a517d440724341ebce4baabc582af6b80c72b35b30ef6dc3fb
 
 build:
-  number: 1
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 2
+  script: ${{ PYTHON }} -m pip install . -vv
 
 requirements:
   build:
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
   host:
     - pip
     - setuptools
@@ -29,20 +31,18 @@ requirements:
     - matplotlib-base
     - setuptools  # needs pkg_resources
 
-test:
-  imports:
-    - pyspike
-    - pyspike.cython
-  commands:
-    - pip check
-  requires:
-    - pip
+tests:
+  - python:
+      imports:
+        - pyspike
+        - pyspike.cython
+      pip_check: true
 
 about:
-  home: https://github.com/mariomulansky/PySpike
   summary: A Python library for the numerical analysis of spiketrain similarity
   license: BSD-2-Clause
   license_file: License.txt
+  homepage: https://github.com/mariomulansky/PySpike
 
 extra:
   recipe-maintainers:
